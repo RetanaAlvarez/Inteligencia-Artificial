@@ -1,9 +1,9 @@
-package com.aspiradora.jframe;
+package com.mycompany.aspiradora;
 
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-public class matriznc {
+public class Aspiradora {
 
     static Scanner sc = new Scanner(System.in);
 
@@ -23,7 +23,7 @@ public class matriznc {
         Integer[] options1 = {0, 1};
         Integer[] options0 = {0};
 
-        f = (Integer) JOptionPane.showInputDialog(null, "elige la casilla de la matriz:", "casilla", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        f = (Integer) JOptionPane.showInputDialog(null, "elige el tamaño de la matriz:", "casilla", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         /*------------------------------------------------------impresion de la matriz--------------------*/
         c = f;
         int matrix[][] = new int[f][c];
@@ -36,7 +36,7 @@ public class matriznc {
             System.out.println();
         }
         /*----------------------colcacion de la basura---------------------*/
-        JOptionPane.showMessageDialog(null, "la cantidad de basura pueden se mayor que la matris y se pueden sobrescribir las cordenas");
+        JOptionPane.showMessageDialog(null, "la cantidad de basura no puede ser mayor que la matriz");
         basura = (Integer) JOptionPane.showInputDialog(null, "elige la cantidad de basura:", "basura", JOptionPane.QUESTION_MESSAGE, null, options9, options9[0]);
         for (a = 1; a <= basura; a++) {
             int m, n;
@@ -116,7 +116,7 @@ public class matriznc {
                         matrix[y][x] = 0;//deja un coero en la posicion que paso
                         /*imprime el contenido---------------*/
                         System.out.println("-------------------cambio de ubicacion-------------");
-                        JOptionPane.showMessageDialog(null, "contador es: " + contador );
+                        //JOptionPane.showMessageDialog(null, "contador es: " + contador );
                         contador = contador + 1;
                         for (int i = 0; i < f; i++) {
                             for (int j = 0; j < c; j++) {
