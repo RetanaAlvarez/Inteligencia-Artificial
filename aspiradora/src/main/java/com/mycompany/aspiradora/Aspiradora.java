@@ -23,7 +23,7 @@ public class Aspiradora {
         Integer[] options1 = {0, 1};
         Integer[] options0 = {0};
 
-        f = (Integer) JOptionPane.showInputDialog(null, "elige el tamaño de la matriz:", "casilla", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        f = (Integer) JOptionPane.showInputDialog(null, "elige el tamaÃ±o de la matriz:", "casilla", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         /*------------------------------------------------------impresion de la matriz--------------------*/
         c = f;
         int matrix[][] = new int[f][c];
