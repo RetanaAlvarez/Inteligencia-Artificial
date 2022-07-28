@@ -1,23 +1,24 @@
 package formula_de_bayes;
 
 import java.util.logging.*;
+import java.text.DecimalFormat;
 
 public class principal {
 
     public static void main(String[] args) {
         //variable globales
         String c1 = "No jugar", c2 = "Jugar";
-        double IM;
+        DecimalFormat df = new DecimalFormat("###.#");
+        double IM, media = 0, mediatotal = 0, menorc1 = 0, menorc2 = 0, menorN1 = 0, menorN2 = 0, mayorc1 = 0, mayorc2 = 0, mayorN1 = 0, mayorN2 = 0;;
         //variables para estado general
         int soleado = 0, nublado = 0, lluvioso = 0;
         double nuN1 = 0, nuN2 = 0, nubladoc1 = 0, nubladoc2 = 0,
                 solN1 = 0, solN2 = 0, soleadoc1 = 0, soleadoc2 = 0,
                 lluN1 = 0, lluN2 = 0, lluviosoc1 = 0, lluviosoc2 = 0;
         //variable de temperatura
-        double media = 0, mediatotal = 0,
-                menor74 = 0, menorc1 = 0, menorc2 = 0, menorN1 = 0, menorN2 = 0,
-                mayor74 = 0, mayorc1 = 0, mayorc2 = 0, mayorrN1 = 0, mayorN2 = 0,
-                temperatura = 0;
+        double menor74 = 0, mayor74 = 0;
+        //variable  de humedad
+        double menor80 = 0, mayor80 = 0;
 
         String[] campos = {"#_inst", "Estado", "Tempe", "Humedad", "viento", "Clase"};
         String[][] registros = {
@@ -143,13 +144,72 @@ public class principal {
                 + "\n>=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
         /*-------------------------<74--------------------*/
         System.out.println("<74");
-        
+
         menorN1 = menorc1 / menor74;
         menorN2 = menorc2 / menor74;
-        System.out.println("Nm=" + menor74 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc2) + "/" + menor74 + ")= " + menorN1);
-        System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor74 + ")= " + menorN2);
+        System.out.println("Nm=" + menor74 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor74 + ")= " + df.format(menorN1));
+        System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor74 + ")= " + df.format(menorN2));
+        IM = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
+        System.out.println("Im=" + IM);
+        System.out.println();
 
-        IM = -((solN1 * (Math.log(solN1) / Math.log(2))) + (solN2 * (Math.log(solN2) / Math.log(2))));
+        /*------------------------->=74--------------------*/
+        System.out.println(">=74");
+        mayorN1 = mayorc1 / mayor74;
+        mayorN2 = mayorc2 / mayor74;
+        System.out.println("Nm=" + mayor74 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor74 + ")= " + df.format(mayorN1));
+        System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor74 + ")= " + df.format(mayorN2));
+        IM = ((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
+        System.out.println("Im=" + IM);
+
+        media = 0;
+        for (int i = 0; i < registros.length; i++) {
+            media = media + Integer.parseInt(registros[i][3]);
+            mediatotal = media / registros.length;
+        }
+        System.out.println("-----------------------------humedad  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
+        System.out.println();
+        menorc1 = 0;menorc2 = 0;menorN1 = 0;menorN2 = 0;mayorc1 = 0;mayorc2 = 0;mayorN1 = 0;mayorN2 = 0;
+        /*----------tabla--------------------------------*/
+        for (int i = 0; i < registros.length; i++) {
+            if (Integer.parseInt(registros[i][3]) < mediatotal) {
+                menor80 = menor80 + 1;
+                if (registros[i][5] == "No jugar") {
+                    menorc1 = menorc1 + 1;
+                } else {
+                    menorc2 = menor80 - menorc1;
+                }
+            } else if (Integer.parseInt(registros[i][3]) >= mediatotal) {
+                mayor80 = mayor80 + 1;
+                if (registros[i][5] == "No jugar") {
+                    mayorc1 = mayorc1 + 1;
+                } else {
+                    mayorc2 = mayor80 - mayorc1;
+                }
+            }
+
+        }
+        System.out.println("\t #_int\tC1\tC2");
+        System.out.println(" <" + Math.round(mediatotal) + "\t" + menor80 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
+                + "\n>=" + Math.round(mediatotal) + "\t" + mayor80 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
+        /*-------------------------<80--------------------*/
+        System.out.println("<80");
+
+        menorN1 = menorc1 / menor80;
+        menorN2 = menorc2 / menor80;
+        System.out.println("Nm=" + menor80 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor80 + ")= " + df.format(menorN1));
+        System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor80 + ")= " + df.format(menorN2));
+        IM = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
+        System.out.println("Im=" + IM);
+        System.out.println();
+
+        /*------------------------->=80--------------------*/
+        System.out.println(">=80");
+        mayorN1 = mayorc1 / mayor80;
+        mayorN2 = mayorc2 / mayor80;
+        System.out.println("Nm=" + mayor80 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor80 + ")= " + df.format(mayorN1));
+        System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor80 + ")= " + df.format(mayorN2));
+        IM = ((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
         System.out.println("Im=" + IM);
 
     }//fin del main
