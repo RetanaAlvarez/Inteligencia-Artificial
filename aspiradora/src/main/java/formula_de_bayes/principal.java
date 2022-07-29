@@ -8,8 +8,10 @@ public class principal {
     public static void main(String[] args) {
         //variable globales
         String c1 = "No jugar", c2 = "Jugar";
-        DecimalFormat df = new DecimalFormat("###.#");
-        double IM, media = 0, mediatotal = 0, menorc1 = 0, menorc2 = 0, menorN1 = 0, menorN2 = 0, mayorc1 = 0, mayorc2 = 0, mayorN1 = 0, mayorN2 = 0;;
+        DecimalFormat df = new DecimalFormat("###.###");
+        double IM, media = 0, mediatotal = 0, menorc1 = 0, menorc2 = 0,
+                menorN1 = 0, menorN2 = 0, mayorc1 = 0, mayorc2 = 0, mayorN1 = 0, mayorN2 = 0,
+                IMsol, IMnu, IMllu, IMmenor74, IMmayor74, registro;
         //variables para estado general
         int soleado = 0, nublado = 0, lluvioso = 0;
         double nuN1 = 0, nuN2 = 0, nubladoc1 = 0, nubladoc2 = 0,
@@ -19,6 +21,12 @@ public class principal {
         double menor74 = 0, mayor74 = 0;
         //variable  de humedad
         double menor80 = 0, mayor80 = 0;
+        //variable de viento
+        double si = 0, no = 0, sic1 = 0,
+                sic2 = 0, noc1 = 0, noc2 = 0,
+                SiN1 = 0, SiN2 = 0, NoN1 = 0, NoN2 = 0;
+        //impureza
+        double impE = 0, impT, impH, impV, impES = 0, impEst = 0, impEstal = 0;
 
         String[] campos = {"#_inst", "Estado", "Tempe", "Humedad", "viento", "Clase"};
         String[][] registros = {
@@ -31,7 +39,7 @@ public class principal {
             {"7", "Nublado", "64", "65", "Si", "Jugar"},
             {"8", "soleado", "72", "95", "No", "No jugar"},
             {"9", "soleado", "69", "70", "No", "Jugar"},
-            {"10", "lluvio", "75", "80", "no", "Jugar"},
+            {"10", "lluvio", "75", "80", "No", "Jugar"},
             {"11", "soleado", "75", "70", "Si", "Jugar"},
             {"12", "Nublado", "72", "90", "Si", "jugar"},
             {"13", "Nublado", "81", "75", "No", "Jugar"},
@@ -46,6 +54,7 @@ public class principal {
             }
             System.out.println();
         }
+        registro = registros.length;
         System.out.println("\n1.- Numero de instancias es " + registros.length);
         System.out.println("\n2.- Conjunto de clases\nc1=" + c1 + ", c2=" + c2);
         System.out.println();
@@ -89,9 +98,8 @@ public class principal {
         System.out.println("Nm=" + soleado + "\nN1=" + Math.round(soleadoc1) + ", P1=(" + Math.round(soleadoc1) + "/" + soleado + ")= " + solN1);
         System.out.println("N2=" + Math.round(soleadoc2) + ", P2=(" + Math.round(soleadoc2) + "/" + soleado + ")= " + solN2);
 
-        IM = -((solN1 * (Math.log(solN1) / Math.log(2))) + (solN2 * (Math.log(solN2) / Math.log(2))));
-        System.out.println("Im=" + IM);
-
+        IMsol = -((solN1 * (Math.log(solN1) / Math.log(2))) + (solN2 * (Math.log(solN2) / Math.log(2))));
+        System.out.println("Im=" + IMsol);
         /*--------------nublado-----------------*/
         System.out.println("\n*Nublado");
         nuN1 = nubladoc1 / nublado;
@@ -99,8 +107,8 @@ public class principal {
         System.out.println("Nm=" + nublado + "\nN1=" + Math.round(nubladoc1) + ", P1=(" + Math.round(nubladoc1) + "/" + nublado + ")= " + nuN1);
         System.out.println("N2=" + Math.round(nubladoc2) + ", P2=(" + Math.round(nubladoc2) + "/" + nublado + ")= " + nuN2);
 
-        IM = -((nuN1 * (Math.log(nuN1) / Math.log(2))) + (nuN2 * (Math.log(nuN2) / Math.log(2))));
-        System.out.println("Im=" + IM);
+        IMnu = -((nuN1 * (Math.log(nuN1) / Math.log(2))) + (nuN2 * (Math.log(nuN2) / Math.log(2))));
+        System.out.println("Im=" + IMnu);
 
         /*--------------lluvioso-----------------*/
         System.out.println("\n*Nublado");
@@ -109,8 +117,8 @@ public class principal {
         System.out.println("Nm=" + lluvioso + "\nN1=" + Math.round(lluviosoc1) + ", P1=(" + Math.round(lluviosoc1) + "/" + lluvioso + ")= " + lluN1);
         System.out.println("N2=" + Math.round(lluviosoc2) + ", P2=(" + Math.round(lluviosoc2) + "/" + lluvioso + ")= " + lluN2);
 
-        IM = -((lluN1 * (Math.log(lluN1) / Math.log(2))) + (lluN2 * (Math.log(lluN2) / Math.log(2))));
-        System.out.println("Im=" + IM);
+        IMllu = -((lluN1 * (Math.log(lluN1) / Math.log(2))) + (lluN2 * (Math.log(lluN2) / Math.log(2))));
+        System.out.println("Im=" + IMllu);
         /*-------------------------Temperatura----------------------*/
 
         for (int i = 0; i < registros.length; i++) {
@@ -140,17 +148,18 @@ public class principal {
 
         }
         System.out.println("\t #_int\tC1\tC2");
-        System.out.println(" <" + Math.round(mediatotal) + "\t" + menor74 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
-                + "\n>=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
-        /*-------------------------<74--------------------*/
-        System.out.println("<74");
+        System.out.println(" >" + Math.round(mediatotal) + "\t" + menor74 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
+                + "\n<=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
+        /*-------------------------<74-------
+        -------------*/
+        System.out.println(">74");
 
         menorN1 = menorc1 / menor74;
         menorN2 = menorc2 / menor74;
         System.out.println("Nm=" + menor74 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor74 + ")= " + df.format(menorN1));
         System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor74 + ")= " + df.format(menorN2));
-        IM = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
-        System.out.println("Im=" + IM);
+        IMmayor74 = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
+        System.out.println("Im=" + IMmayor74);
         System.out.println();
 
         /*------------------------->=74--------------------*/
@@ -159,8 +168,8 @@ public class principal {
         mayorN2 = mayorc2 / mayor74;
         System.out.println("Nm=" + mayor74 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor74 + ")= " + df.format(mayorN1));
         System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor74 + ")= " + df.format(mayorN2));
-        IM = ((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
-        System.out.println("Im=" + IM);
+        IMmenor74 = ((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
+        System.out.println("Im=" + IMmenor74);
 
         media = 0;
         for (int i = 0; i < registros.length; i++) {
@@ -169,7 +178,14 @@ public class principal {
         }
         System.out.println("-----------------------------humedad  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
         System.out.println();
-        menorc1 = 0;menorc2 = 0;menorN1 = 0;menorN2 = 0;mayorc1 = 0;mayorc2 = 0;mayorN1 = 0;mayorN2 = 0;
+        menorc1 = 0;
+        menorc2 = 0;
+        menorN1 = 0;
+        menorN2 = 0;
+        mayorc1 = 0;
+        mayorc2 = 0;
+        mayorN1 = 0;
+        mayorN2 = 0;
         /*----------tabla--------------------------------*/
         for (int i = 0; i < registros.length; i++) {
             if (Integer.parseInt(registros[i][3]) < mediatotal) {
@@ -211,6 +227,75 @@ public class principal {
         System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor80 + ")= " + df.format(mayorN2));
         IM = ((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
         System.out.println("Im=" + IM);
+        /*--------------------------viento-------------------------*/
+        for (int i = 0; i < registros.length; i++) {
+            if (registros[i][4] == "Si") {
+                si = si + 1;
+                if (registros[i][5] == "No jugar") {
+                    sic1 = sic1 + 1;
+                } else {
+                    sic2 = si - sic1;
+                }
+            } else if (registros[i][4] == "No") {
+                no = no + 1;
+                if (registros[i][5] == "No jugar") {
+                    noc1 = noc1 + 1;
+                } else {
+                    noc2 = no - noc1;
+                }
+            }
 
+        }
+        System.out.println("-------------------------Viento----------------------------------");
+        System.out.println("\t #_int\tC1\tC2");
+
+        System.out.println("Si=" + "\t" + si + "\t" + sic1 + "\t" + sic2
+                + "\nNo=" + "\t" + no + "\t" + noc1 + "\t" + noc2);
+        /*-------------------------Si--------------------*/
+        System.out.println("Si");
+        SiN1 = sic1 / si;
+        SiN2 = sic2 / si;
+        System.out.println("Nm=" + si + "\nN1=" + Math.round(sic1) + ", P1=(" + Math.round(sic1) + "/" + si + ")= " + df.format(SiN1));
+        System.out.println("N1=" + Math.round(sic2) + ", P1=(" + Math.round(sic2) + "/" + si + ")= " + df.format(SiN2));
+        IM = ((SiN1 * (Math.log(SiN1) / Math.log(2))) + (SiN2 * (Math.log(SiN2) / Math.log(2))));
+        System.out.println("Im=" + IM);
+        /*-------------------------No--------------------*/
+        System.out.println("No");
+        NoN1 = noc1 / no;
+        NoN2 = noc2 / no;
+        System.out.println("Nm=" + no + "\nN1=" + Math.round(noc1) + ", P1=(" + Math.round(noc1) + "/" + no + ")= " + df.format(NoN1));
+        System.out.println("N1=" + Math.round(noc2) + ", P1=(" + Math.round(noc2) + "/" + no + ")= " + df.format(NoN2));
+        IM = ((NoN1 * (Math.log(NoN1) / Math.log(2))) + (NoN2 * (Math.log(NoN2) / Math.log(2))));
+        System.out.println("Im=" + IM);
+
+        /*----------------------------------impureza----------------------------------*/
+        System.out.println("------------------------impureza de la division---------------------");
+        System.out.println("--------Estado General");
+
+        impE = (soleado / registro * IMsol);
+        impES = ((nublado / registro * IMnu));
+        impEst = (lluvioso / registro * IMllu);
+        if (Double.toString(impE) == "NaN") {
+            impE = 0;
+        } else if (Double.toString(impES) == "NaN") {
+            impES = 0;
+        } else if (Double.toString(impEst) == "NaN") {
+            impEst = 0;
+        }
+        impEstal = impE + impES + impEst;
+        System.out.println(df.format(impEstal));
+        System.out.println();
+        
+        System.out.println("--------Temperatura");
+        impT = ((soleado / registros.length * IMsol) + (nublado / registros.length * IMnu) + (lluvioso / registros.length * IMllu));
+        System.out.println(impT);
+        System.out.println();
+        /*System.out.println("--------Humedad");
+        impH = ((soleado/ registros.length *IMsol)+(nublado/ registros.length *IMnu)+(lluvioso/ registros.length *IMllu));
+        System.out.println(impH);
+         System.out.println();
+        System.out.println("--------Viento");
+        impV = ((soleado/ registros.length *IMsol)+(nublado/ registros.length *IMnu)+(lluvioso/ registros.length *IMllu));
+        System.out.println(impV);*/
     }//fin del main
 }//fin de la clase
