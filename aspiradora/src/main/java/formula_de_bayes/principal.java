@@ -12,9 +12,10 @@ public class principal {
         DecimalFormat df = new DecimalFormat("###.###");
         double IM, media = 0, mediatotal = 0, menorc1 = 0, menorc2 = 0,
                 menorN1 = 0, menorN2 = 0, mayorc1 = 0, mayorc2 = 0, mayorN1 = 0, mayorN2 = 0,
-                IMsol, IMnu, IMllu, IMmenor74, IMmayor74, registro, total;
+                IMsol, IMnu, IMllu, IMmenor74, IMmayor74, registro, total,
+                Nm;
         //variables para estado general
-        int soleado = 0, nublado = 0, lluvioso = 0;
+        double soleado = 0, nublado = 0, lluvioso = 0;
         double nuN1 = 0, nuN2 = 0, nubladoc1 = 0, nubladoc2 = 0,
                 solN1 = 0, solN2 = 0, soleadoc1 = 0, soleadoc2 = 0,
                 lluN1 = 0, lluN2 = 0, lluviosoc1 = 0, lluviosoc2 = 0;
@@ -64,6 +65,8 @@ public class principal {
         System.out.println();
         /*----------------------------------------------------------------Estado General---------------------------*/
         System.out.println("-----------------------------Estado General---------------------------------------------");
+        
+        //temperatura(registro);
         for (int i = 0; i < registros.length; i++) {
             for (int j = 0; j < registros[i].length; j++) {
                 //-----------------busca los soleados
@@ -105,7 +108,7 @@ public class principal {
         solN2 = soleadoc2 / soleado;
         System.out.println("Nm=" + soleado + "\nN1=" + Math.round(soleadoc1) + ", P1=(" + Math.round(soleadoc1) + "/" + soleado + ")= " + solN1);
         System.out.println("N2=" + Math.round(soleadoc2) + ", P2=(" + Math.round(soleadoc2) + "/" + soleado + ")= " + solN2);
-        double sol[]={soleadoc1,soleadoc2};
+        double sol[] = {soleadoc1, soleadoc2};
         IMsol = -((solN1 * (Math.log(solN1) / Math.log(2))) + (solN2 * (Math.log(solN2) / Math.log(2))));
         if (Double.toString(IMsol) == "NaN") {
             IMsol = 0;
@@ -130,7 +133,7 @@ public class principal {
         lluN2 = lluviosoc2 / lluvioso;
         System.out.println("Nm=" + lluvioso + "\nN1=" + Math.round(lluviosoc1) + ", P1=(" + Math.round(lluviosoc1) + "/" + lluvioso + ")= " + lluN1);
         System.out.println("N2=" + Math.round(lluviosoc2) + ", P2=(" + Math.round(lluviosoc2) + "/" + lluvioso + ")= " + lluN2);
-        double lluv[]={lluviosoc1,lluviosoc2};
+        double lluv[] = {lluviosoc1, lluviosoc2};
         IMllu = -((lluN1 * (Math.log(lluN1) / Math.log(2))) + (lluN2 * (Math.log(lluN2) / Math.log(2))));
         if (Double.toString(IMllu) == "NaN") {
             IMllu = 0;
@@ -138,6 +141,7 @@ public class principal {
         System.out.println("Im=" + IMllu);
         /*-------------------------Temperatura----------------------*/
  /*----------------------------------media de temperatura------------------*/
+ 
         for (int i = 0; i < registros.length; i++) {
             media = media + Integer.parseInt(registros[i][2]);
             mediatotal = media / registros.length;
@@ -348,87 +352,77 @@ public class principal {
                     System.out.println("soleado=" + a[0]);
                     Arrays.sort(sol);
                     if (IMsol == a[0]) {
-                        //for (int j = 0; j <  ; j++) {
                         if (sol[i] == sol[0]) {
                             System.out.println("\tJugar");
                         } else {
                             System.out.println("\tNo Jugar");
-                            //  }
                         }
                     }
+                    Nm = soleado;
+                    System.out.println(Nm);
                 } else if (a[i] == IMllu) {
                     System.out.println("lluvioso=" + a[0]);
                     Arrays.sort(lluv);
                     if (IMllu == a[0]) {
-                        //for (int j = 0; j <  ; j++) {
                         if (lluv[i] == lluv[0]) {
                             System.out.println("\tJugar");
                         } else {
                             System.out.println("\tNo Jugar");
-                            //  }
                         }
                     }
+                    Nm = lluvioso;
+                    System.out.println(Nm);
                 } else if (a[i] == IMnu) {
                     System.out.println("nublado=" + a[0]);
                     Arrays.sort(nubl);
                     if (IMnu == a[0]) {
-                        //for (int j = 0; j <  ; j++) {
                         if (nubl[i] == nubl[0]) {
                             System.out.println("\tJugar");
                         } else {
                             System.out.println("\tNo Jugar");
-                            //  }
                         }
                     }
-                }
-            } else if (a[i] == a[1]) {//------------------siguiente rama
-                
-                if (a[i] == IMsol) {
-                    System.out.println("soleado=" + a[1]);
-                    Arrays.sort(sol);
-                    if (IMsol == a[0]) {
-                        //for (int j = 0; j <  ; j++) {
-                        if (sol[i] == sol[1]) {
-                            System.out.println("\tJugar");
-                        } else {
-                            System.out.println("\tNo Jugar");
-                            //  }
+                    if (a[1] == a[2]) {
+                        System.out.println("soleado");
+                        Nm = soleado;
+                        System.out.println(Nm);
+                        soleadoc1 = 0;
+                        soleadoc1 = 0;
+                        soleado = 0;
+                        for (int h = 0; h < registros.length; h++) {
+                            for (int j = 0; j < registros[h].length; j++) {
+                                if (registros[h][j] == "soleado") {
+                                    soleado = soleado + 1;
+                                    //-----------------busca los No jugar
+                                    if (registros[h][5] == "No jugar") {
+                                        soleadoc1 = soleadoc1 + 1;
+                                    } else {
+                                        soleadoc2 = soleado - soleadoc1;
+                                    }
+                                }
+                            }
+                            //-----------------busca los nublados
                         }
-                    }
-                } else if (a[i] == IMllu) {
-                    System.out.println("lluvioso=" + a[1]);
-                    Arrays.sort(lluv);
-                    if (IMllu == a[1]) {
-                        //for (int j = 0; j <  ; j++) {
-                        if (lluv[i] == lluv[0]) {
-                            System.out.println("\tJugar");
-                        } else {
-                            System.out.println("\tNo Jugar");
-                            //  }
-                        }
-                    }
-                } else if (a[i] == IMnu) {
-                    System.out.println("nublado=" + a[0]);
-                    Arrays.sort(nubl);
-                    if (IMnu == a[0]) {
-                        //for (int j = 0; j <  ; j++) {
-                        if (nubl[i] == nubl[1]) {
-                            System.out.println("\tJugar");
-                        } else {
-                            System.out.println("\tNo Jugar");
-                            //  }
-                        }
-                    }
-                }
-                System.out.println(a[1]);
-                
-            } else if (a[i] == a[2]) {//----------------------tercera rama
-                //System.out.println(a[2]);
+                        System.out.println("\n*Soleado");
+                        solN1 = soleadoc1 / soleado;
+                        solN2 = soleadoc2 / soleado;
+                        System.out.println("Nm=" + soleado + "\nN1=" + Math.round(soleadoc1) + ", P1=(" + Math.round(soleadoc1) + "/" + soleado + ")= " + solN1);
+                        System.out.println("N2=" + Math.round(soleadoc2) + ", P2=(" + Math.round(soleadoc2) + "/" + soleado + ")= " + solN2);
 
+                        IMsol = -((solN1 * (Math.log(solN1) / Math.log(2))) + (solN2 * (Math.log(solN2) / Math.log(2))));
+                        if (Double.toString(IMsol) == "NaN") {
+                            IMsol = 0;
+                        }
+                        System.out.println("Im=" + IMsol);
+                    } else {
+                        Nm = nublado;
+                        System.out.println(Nm);
+                        System.out.println("lluvioso");
+                    }
+
+                }
             }
-
         }
 
-        //System.out.println("\tSoleado\t" + IMsol + "\n\tlluvios\t" + IMllu + "\n\tnublado\t" + IMnu);
     }//fin del main
 }//fin de la clase
