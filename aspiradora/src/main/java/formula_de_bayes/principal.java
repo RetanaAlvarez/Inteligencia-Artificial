@@ -7,6 +7,9 @@ import java.util.Arrays;
 public class principal {
 
     public static void main(String[] args) {
+        //instancias
+        Matriz ma;
+        temp t;
         //variable globales
         String c1 = "No jugar", c2 = "Jugar";
         DecimalFormat df = new DecimalFormat("###.###");
@@ -65,7 +68,7 @@ public class principal {
         System.out.println();
         /*----------------------------------------------------------------Estado General---------------------------*/
         System.out.println("-----------------------------Estado General---------------------------------------------");
-        
+
         //temperatura(registro);
         for (int i = 0; i < registros.length; i++) {
             for (int j = 0; j < registros[i].length; j++) {
@@ -141,7 +144,7 @@ public class principal {
         System.out.println("Im=" + IMllu);
         /*-------------------------Temperatura----------------------*/
  /*----------------------------------media de temperatura------------------*/
- 
+
         for (int i = 0; i < registros.length; i++) {
             media = media + Integer.parseInt(registros[i][2]);
             mediatotal = media / registros.length;
@@ -167,12 +170,14 @@ public class principal {
                 }
             }
         }
+        media = 0;
+
         /*-------------------tabla de Temperatura-------------------*/
         System.out.println("\t #_int\tC1\tC2");
         System.out.println(" >" + Math.round(mediatotal) + "\t" + menor74 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
                 + "\n<=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
         /*-------------------------<74-------------------*/
-        System.out.println(">74");
+        System.out.println(">" + mediatotal);
         menorN1 = menorc1 / menor74;
         menorN2 = menorc2 / menor74;
         System.out.println("Nm=" + menor74 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor74 + ")= " + df.format(menorN1));
@@ -182,7 +187,7 @@ public class principal {
         System.out.println();
 
         /*------------------------->=74--------------------*/
-        System.out.println(">=74");
+        System.out.println(">=" + mediatotal);
         mayorN1 = mayorc1 / mayor74;
         mayorN2 = mayorc2 / mayor74;
         System.out.println("Nm=" + mayor74 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor74 + ")= " + df.format(mayorN1));
@@ -191,6 +196,7 @@ public class principal {
         System.out.println("Im=" + IMmenor74);
         /*----------------------------------media de Humedad------------------*/
         media = 0;
+        mediatotal = 0;
         for (int i = 0; i < registros.length; i++) {
             media = media + Integer.parseInt(registros[i][3]);
             mediatotal = media / registros.length;
@@ -228,7 +234,7 @@ public class principal {
         System.out.println(" <" + Math.round(mediatotal) + "\t" + menor80 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
                 + "\n>=" + Math.round(mediatotal) + "\t" + mayor80 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
         /*-------------------------<80--------------------*/
-        System.out.println("<80");
+        System.out.println("<" + mediatotal);
 
         menorN1 = menorc1 / menor80;
         menorN2 = menorc2 / menor80;
@@ -239,7 +245,7 @@ public class principal {
         System.out.println();
 
         /*------------------------->=80--------------------*/
-        System.out.println(">=80");
+        System.out.println(">=" + mediatotal);
         mayorN1 = mayorc1 / mayor80;
         mayorN2 = mayorc2 / mayor80;
         System.out.println("Nm=" + mayor80 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor80 + ")= " + df.format(mayorN1));
@@ -385,10 +391,10 @@ public class principal {
                     if (a[1] == a[2]) {
                         System.out.println("soleado");
                         Nm = soleado;
-                        System.out.println(Nm);
                         soleadoc1 = 0;
                         soleadoc1 = 0;
                         soleado = 0;
+
                         for (int h = 0; h < registros.length; h++) {
                             for (int j = 0; j < registros[h].length; j++) {
                                 if (registros[h][j] == "soleado") {
@@ -399,6 +405,7 @@ public class principal {
                                     } else {
                                         soleadoc2 = soleado - soleadoc1;
                                     }
+
                                 }
                             }
                             //-----------------busca los nublados
@@ -414,6 +421,145 @@ public class principal {
                             IMsol = 0;
                         }
                         System.out.println("Im=" + IMsol);
+
+                        media = 0;mediatotal = 0;
+                        menor74 = menorc1 = menorc2 = mayor74 = mayorc1 = mayorc2 = 0;
+                        for (int v = 0; v < registros.length; v++) {
+                            for (int j = 0; j < registros[v].length; j++) {
+                                if (registros[v][j] == "soleado") {
+                                    media = media + Integer.parseInt(registros[v][2]);
+                                    mediatotal = media / soleado;
+                                }
+                            }
+                        }
+                        menor74 = 0;menorc1 = 0;menorc2 = 0;mayor74 = 0;mayorc1 = 0;mayorc2 = 0;
+                        for (int v = 0; v < registros.length; v++) {
+                            for (int j = 0; j < registros[v].length; j++) {
+                                if (registros[v][j] == "soleado") {
+                                    if (Integer.parseInt(registros[v][2]) > mediatotal) {
+                                        menor74 = menor74 + 1;
+                                        if (registros[v][5] == "No jugar") {
+                                            menorc1 = menorc1 + 1;
+                                        } else if (registros[v][5] == "Jugar") {
+                                            menorc2 = menorc2 + 1;
+                                        }
+                                    } else if (Integer.parseInt(registros[v][2]) < mediatotal) {
+                                        mayor74 = mayor74 + 1;
+                                        System.out.println("gola" + mayor74);
+                                        if (registros[v][5] == "No jugar") {
+                                            mayorc1 = mayorc1 + 1;
+
+                                        } else if (registros[v][5] == "Jugar") {
+                                            mayorc2 = mayorc2 + 1;
+                                        }
+                                        System.out.println(mayorc1);
+                                    }
+                                }
+                            }
+                        }
+
+                        //  mediatotal = mediatotal - 1;
+                        System.out.println("-----------------------------Temperatura  (la media es= " + mediatotal + ")---------------------------------------------");
+                        System.out.println();
+
+                        /*----------tabla de Temperatura--------------------------------*/
+ /*-------------------tabla de Temperatura-------------------*/
+                        System.out.println("\t #_int\tC1\tC2");
+                        System.out.println(" >" + Math.round(mediatotal) + "\t" + menor74 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
+                                + "\n<=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
+                        /*-------------------------<74-------------------*/
+                        System.out.println(">" + mediatotal);
+                        menorN1 = menorc1 / menor74;
+                        menorN2 = menorc2 / menor74;
+                        System.out.println("Nm=" + menor74 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor74 + ")= " + df.format(menorN1));
+                        System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor74 + ")= " + df.format(menorN2));
+                        IMmayor74 = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
+                        System.out.println("Im=" + IMmayor74);
+                        System.out.println();
+
+                        //*------------------------->=74--------------------*/
+                        System.out.println(">=" + mediatotal);
+                        mayorN1 = mayorc1 / mayor74;
+                        mayorN2 = mayorc2 / mayor74;
+                        System.out.println("Nm=" + mayor74 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor74 + ")= " + df.format(mayorN1));
+                        System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor74 + ")= " + df.format(mayorN2));
+                        IMmenor74 = -((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
+                        System.out.println("Im=" + IMmenor74);
+                        
+                        
+                        /*-----------------------hasta aqui va bien-------------*/
+                         /*----------------------------------media de Humedad------------------*/
+                         
+                        media = 0;mediatotal = 0;
+                        menor74 = menorc1 = menorc2 = mayor74 = mayorc1 = mayorc2 = 0;
+                        for (int v = 0; v < registros.length; v++) {
+                            for (int j = 0; j < registros[v].length; j++) {
+                                if (registros[v][j] == "soleado") {
+                                    media = media + Integer.parseInt(registros[v][3]);
+                                    mediatotal = media / soleado;
+                                }
+                            }
+                        }
+                        menor74 = 0;menorc1 = 0;menorc2 = 0;mayor74 = 0;mayorc1 = 0;mayorc2 = 0;menor80=0;mayor80=0;
+                        for (int v = 0; v < registros.length; v++) {
+                            for (int j = 0; j < registros[v].length; j++) {
+                                if (registros[v][j] == "soleado") {
+                                    if (Integer.parseInt(registros[v][3]) > mediatotal) {
+                                        menor80 = menor80 + 1;
+                                        if (registros[v][5] == "No jugar") {
+                                            menorc1 = menorc1 + 1;
+                                        } else if (registros[v][5] == "Jugar") {
+                                            menorc2 = menorc2 + 1;
+                                        }
+                                    } else if (Integer.parseInt(registros[v][3]) < mediatotal) {
+                                        mayor80 = mayor80 + 1;
+                                        System.out.println("gola" + mayor74);
+                                        if (registros[v][5] == "No jugar") {
+                                            mayorc1 = mayorc1 + 1;
+
+                                        } else if (registros[v][5] == "Jugar") {
+                                            mayorc2 = mayorc2 + 1;
+                                        }
+                                        System.out.println(mayorc1);
+                                    }
+                                }
+                            }
+                        }
+                        System.out.println("-----------------------------humedad  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
+                        System.out.println();
+                      
+                        /*-----------------------tabla de Humedad-------------------------*/
+                        System.out.println("\t #_int\tC1\tC2");
+                        System.out.println(" <" + Math.round(mediatotal) + "\t" + menor80 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
+                                + "\n>=" + Math.round(mediatotal) + "\t" + mayor80 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
+                        /*-------------------------<80--------------------*/
+                        System.out.println("<" + mediatotal);
+
+                        menorN1 = menorc1 / menor80;
+                        menorN2 = menorc2 / menor80;
+                        System.out.println("Nm=" + menor80 + "\nN1=" + Math.round(menorc1) + ", P1=(" + Math.round(menorc1) + "/" + menor80 + ")= " + df.format(menorN1));
+                        System.out.println("N1=" + Math.round(menorc2) + ", P1=(" + Math.round(menorc2) + "/" + menor80 + ")= " + df.format(menorN2));
+                        IMmenor80=0;
+                        IMmenor80 = -((menorN1 * (Math.log(menorN1) / Math.log(2))) + (menorN2 * (Math.log(menorN2) / Math.log(2))));
+                        System.out.println("Im=" + IMmenor80);
+                        System.out.println();
+
+                        /*------------------------->=80--------------------*/
+                        System.out.println(">=" + mediatotal);
+                        mayorN1 = mayorc1 / mayor80;
+                        mayorN2 = mayorc2 / mayor80;
+                        System.out.println("Nm=" + mayor80 + "\nN1=" + Math.round(mayorc1) + ", P1=(" + Math.round(mayorc1) + "/" + mayor80 + ")= " + df.format(mayorN1));
+                        System.out.println("N1=" + Math.round(mayorc2) + ", P1=(" + Math.round(mayorc2) + "/" + mayor80 + ")= " + df.format(mayorN2));
+                        IMmayor80=0;
+                        IMmayor80 = -((mayorN1 * (Math.log(mayorN1) / Math.log(2))) + (mayorN2 * (Math.log(mayorN2) / Math.log(2))));
+                        System.out.println("Im=" + IMmayor80);
+                        
+                        /*-----------------------hasta aqui va bien-------------*/
+                        
+                        
+                        
+                        
+
                     } else {
                         Nm = nublado;
                         System.out.println(Nm);

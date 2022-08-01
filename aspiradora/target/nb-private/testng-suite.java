@@ -1,33 +1,23 @@
 package formula_de_bayes;
 
-public class temp {
+import java.util.logging.*;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 
-    static String[][] b = null;
-
-    public static void main(String[] args) {
-        Matriz b;
-
-        b.registros(b);
-
-    }
-    //--------------hacer tabla----------------
+public interface temp {
 
     public static double tabla_temperatura(double a[][], double b, double c) {
-        Matriz m;
-        m.registros(a);
+        /*---------------hacer tabla----------------*/
         for (int i = 0; i < a.length; i++) {
-
-            b = b + Integer.parseInt(m.registros(a[i][2]));
+            b = b + Integer.parseInt(a[i][2]);
             c = b / a.length;
         }
-        return (c);
+        return ( a[][], b, c);
     }
-
-}
-/*
+     public static 
         System.out.println("-----------------------------Temperatura  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
         System.out.println();
-        /*----------tabla de Temperatura--------------------------------
+        /*----------tabla de Temperatura--------------------------------*/
         for (int i = 0; i < registros.length; i++) {
             if (Integer.parseInt(registros[i][2]) < mediatotal) {
                 menor74 = menor74 + 1;
@@ -45,11 +35,11 @@ public class temp {
                 }
             }
         }
-        /*-------------------tabla de Temperatura-------------------
+        /*-------------------tabla de Temperatura-------------------*/
         System.out.println("\t #_int\tC1\tC2");
         System.out.println(" >" + Math.round(mediatotal) + "\t" + menor74 + "\t" + Math.round(menorc1) + "\t" + Math.round(menorc2)
                 + "\n<=" + Math.round(mediatotal) + "\t" + mayor74 + "\t" + Math.round(mayorc1) + "\t" + Math.round(mayorc2));
-        /*-------------------------<74-------------------
+        /*-------------------------<74-------------------*/
         System.out.println(">74");
         menorN1 = menorc1 / menor74;
         menorN2 = menorc2 / menor74;
@@ -59,7 +49,7 @@ public class temp {
         System.out.println("Im=" + IMmayor74);
         System.out.println();
 
-        /*------------------------->=74--------------------
+        /*------------------------->=74--------------------*/
         System.out.println(">=74");
         mayorN1 = mayorc1 / mayor74;
         mayorN2 = mayorc2 / mayor74;
@@ -69,3 +59,4 @@ public class temp {
         System.out.println("Im=" + IMmenor74);
     
     /*----------------------------------media de temperatura------------------*/
+}

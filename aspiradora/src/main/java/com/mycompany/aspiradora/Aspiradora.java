@@ -9,7 +9,6 @@ public class Aspiradora {
 
     public static void main(String[] args) {
         int basura = 0, v = 1, b = 2, d = 0, a = 1;
-
         int h, f, c;
         Integer[] options = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         Integer[] options9 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
