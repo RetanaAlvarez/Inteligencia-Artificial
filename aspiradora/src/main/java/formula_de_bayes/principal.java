@@ -3,6 +3,7 @@ package formula_de_bayes;
 import java.util.logging.*;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 public class principal {
 
@@ -21,7 +22,8 @@ public class principal {
         double nuN1 = 0, nuN2 = 0, nubladoc1 = 0, nubladoc2 = 0,
                 solN1 = 0, solN2 = 0, soleadoc1 = 0, soleadoc2 = 0,
                 lluN1 = 0, lluN2 = 0, lluviosoc1 = 0, lluviosoc2 = 0;
-        //variable de temperatura
+
+//variable de temperatura
         double menor74 = 0, mayor74 = 0;
         //variable  de humedad
         double menor80 = 0, mayor80 = 0;
@@ -35,6 +37,21 @@ public class principal {
                 impTEM, impTE, impHu, impHum, impVi, impVie;
         /*--------------------------------registros------------------------*/
         String[] campos = {"#_inst", "Estado", "Tempe", "Humedad", "viento", "Clase"};
+        String[][] registross = {
+            {"1", "soleado", "85", "85", "No", "No jugar"},
+            {"2", "soleado", "80", "90", "Si", "No jugar"},
+            {"3", "Nublado", "83", "78", "No", "No jugar"},
+            {"4", "lluvio", "70", "96", "No", "No jugar"},
+            {"5", "lluvio", "68", "80", "No", "No jugar"},
+            {"6", "lluvio", "65", "70", "Si", "No jugar"},
+            {"7", "Nublado", "64", "65", "Si", "No jugar"},
+            {"8", "soleado", "72", "95", "No", "No jugar"},
+            {"9", "soleado", "69", "70", "No", "No jugar"},
+            {"10", "lluvio", "75", "80", "No", "No jugar"},
+            {"11", "soleado", "75", "70", "Si", "No jugar"},
+            {"12", "Nublado", "72", "90", "Si", "No jugar"},
+            {"13", "Nublado", "81", "75", "No", "No jugar"},
+            {"14", "lluvio", "71", "80", "Si", "No jugar"}};
         String[][] registros = {
             {"1", "soleado", "85", "85", "No", "No jugar"},
             {"2", "soleado", "80", "90", "Si", "No jugar"},
@@ -50,15 +67,14 @@ public class principal {
             {"12", "Nublado", "72", "90", "Si", "jugar"},
             {"13", "Nublado", "81", "75", "No", "Jugar"},
             {"14", "lluvio", "71", "80", "Si", "No jugar"}};
-        String[] Estado_Genero = {"soleado", "Nublado", "lluvio"};
-        String[] numero = {"50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"};
-        String[] Viento = {"No", "Si"};
-        String[] clase = {"No jugar", "Jugar"};
+        
         /*------------------colocacion de los campos --------------------*/
         for (int x = 0; x < campos.length; x++) {
             System.out.print(campos[x] + "\t");
         }
         System.out.println();
+        String[][] x = null;
+        
         //*------------------------------colocacion de los registros-----------------------*/
         for (int i = 0; i < registros.length; i++) {
             for (int j = 0; j < registros[i].length; j++) {
@@ -153,7 +169,7 @@ public class principal {
             media = media + Integer.parseInt(registros[i][2]);
             mediatotal = media / registros.length;
         }
-        double mediatotal1=mediatotal;
+        double mediatotal1 = mediatotal;
 
         System.out.println("-----------------------------Temperatura  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
         System.out.println();
@@ -206,7 +222,7 @@ public class principal {
             media = media + Integer.parseInt(registros[i][3]);
             mediatotal = media / registros.length;
         }
-        double mediatotal2=mediatotal;
+        double mediatotal2 = mediatotal;
         System.out.println("-----------------------------humedad  (la media es= " + Math.round(mediatotal) + ")---------------------------------------------");
         System.out.println();
         menorc1 = menorc2 = menorN1 = menorN2 = mayorc1 = mayorc2 = mayorN1 = mayorN2 = 0;
@@ -430,7 +446,7 @@ public class principal {
                                 }
                             }
                         }
-                        double mediatotal3=mediatotal;
+                        double mediatotal3 = mediatotal;
                         menor74 = menorc1 = menorc2 = mayor74 = mayorc1 = mayorc2 = 0;
 
                         for (int v = 0; v < registros.length; v++) {
@@ -499,7 +515,7 @@ public class principal {
                                 }
                             }
                         }
-                        double mediatotal4=mediatotal;
+                        double mediatotal4 = mediatotal;
                         menor74 = menorc1 = menorc2 = mayor74 = mayorc1 = mayorc2 = menor80 = mayor80 = 0;
                         for (int v = 0; v < registros.length; v++) {
                             for (int j = 0; j < registros[v].length; j++) {
@@ -614,7 +630,9 @@ public class principal {
                         } else if (Double.toString(impTE) == "NaN") {
                             impTE = 0;
                         }
+                        double impTEM1;
                         impTEM = impT + impTE;
+                        impTEM1 = impTEM;
                         if (impTEM == 0) {
                             impTEM = impTEM + 1;
                         } else if (Double.toString(impTEM) == "NaN") {
@@ -637,6 +655,7 @@ public class principal {
                             impHum = 0;
                         }
                         System.out.println(impHum);
+                        double impHum1 = impHum;
 
                         System.out.println("--------Viento");/*----------------------------------Viento----------------------------------*/
 
@@ -649,6 +668,7 @@ public class principal {
                         }
                         impVie = impV + impVi;
                         System.out.println(impVie);
+                        double impVie1 = impVie;
                         if (impVie == 0) {
                             impVie = impVie + 1;
                         } else if (Double.toString(impVie) == "NaN") {
@@ -743,7 +763,7 @@ public class principal {
                                 }
                             }
                         }
-                        double mediatotal5=mediatotal;
+                        double mediatotal5 = mediatotal;
                         menor74 = menorc1 = menorc2 = mayor74 = mayorc1 = mayorc2 = 0;
 
                         for (int v = 0; v < registros.length; v++) {
@@ -990,66 +1010,70 @@ public class principal {
                                 }
                             }
                         }*/
+                        for (int j = 0; j < 1; j++) {
+                            if (a[i] == IMnu) {
+                                Arrays.sort(nubl);
+                                System.out.println("nublado=" + a[0]);
+                                if (IMnu == a[0]) {
+                                    if (nubl[i] == nubl[0]) {
+                                        System.out.println("\tJugar");
+                                    } else {
+                                        System.out.println("\tNo Jugar");
+                                    }
+                                }
+                                /*-------------------------lluvioso-------------*/
+                                if (a[1] == IMllu) {
+                                    System.out.println("soleado=" + a[0]);
+                                    Arrays.sort(lluv);
+                                    if (impTEM1 < impHum1 && impTEM1 < impVie1) {
+                                        System.out.println("\t\t>" + mediatotalhum + "No jugar");
+                                        System.out.println("\t\t<=" + mediatotalhum + "jugar");
+                                    } else if (impHum1 < impTEM1 && impHum1 < impVie1) {
+                                        System.out.println("\t\t>" + mediatotalhum + "No jugar");
+                                        System.out.println("\t\t<=" + mediatotalhum + "jugar");
+                                    } else {
+                                        System.out.println("\t\t>" + mediatotalhum + "No jugar");
+                                        System.out.println("\t\t<=" + mediatotalhum + "jugar");
+                                    }
+                                    /*----------------------soleado---------------*/
+                                    if (a[1] == IMsol) {
+                                        System.out.println("*Lluvioso=" + a[0]);
+                                        Arrays.sort(sol);
+                                        /*---------------primera rama---------*/
+                                        if (impTEM < impHum && impTEM < impVie) {
+                                            System.out.println("\temperatura");
+                                        } else if (impHum < impTEM && impHum < impVie) {
+                                            System.out.println("\tHumedad");
+                                            /*if (menorc1 > menorc2) {
+                                    
+                                    System.out.println("\t\t>" + mediatotal5 + "= No Jugar");
+                                    System.out.println("\t\t<=" + mediatotal5 + "=  Jugar");
+                                } else {
+                                    System.out.println("\t\tSi=Jugar");
+                                    System.out.println("\t\tNo= No jugar");
+                                }*/
+                                        } else {
+                                            System.out.println("\tViento");
+                                            if (sic1 > sic2) {
+                                                System.out.println("\t\tsi= No Jugar");
+                                                System.out.println("\t\tNo=Jugar");
+                                            } else {
+                                                System.out.println("\t\tSi=Jugar");
+                                                System.out.println("\t\tNo= No jugar");
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
 
                     }/*-------FIN DE LA RAMA-------------*/
                 }
             }
 
             /*-------------------arbol-----------------*/
-            for (int j = 0; j < 1; j++) {
-                if (a[i] == IMnu) {
-                    Arrays.sort(nubl);
-                    System.out.println("nublado=" + a[0]);
-                    if (IMnu == a[0]) {
-                        if (nubl[i] == nubl[0]) {
-                            System.out.println("\tJugar");
-                        } else {
-                            System.out.println("\tNo Jugar");
-                        }
-                    }
-                    Nm = nublado;
-                    System.out.println(Nm);
-                    /*-------------------------lluvioso-------------*/
-                    if (a[1] == IMllu) {
-                        System.out.println("soleado=" + a[0]);
-                        Arrays.sort(lluv);
-                        Nm = lluvioso;
-                        System.out.println(Nm);
-                        /*----------------------soleado---------------*/
-                        if (a[1] == IMsol) {
-                            System.out.println("*Lluvioso=" + a[0]);
-                            Arrays.sort(sol);
-                            Nm = soleado;
-                            
-                            /*---------------primera rama---------*/
-                            if (impTEM < impHum && impTEM < impVie) {
-                                System.out.println("\temperatura");
-                            } else if (impHum < impTEM && impHum < impVie) {
-                                System.out.println("\tHumedad");
-                                if (menorc1>menorc2) {
-                                    System.out.println("\t\t"+mediatotal+"= No Jugar");
-                                    System.out.println("\t\tNo=Jugar");
-                                }else{
-                                    System.out.println("\t\tSi=Jugar");
-                                    System.out.println("\t\tNo= No jugar");
-                                }
-                            } else {
-                                System.out.println("\tViento");
-                                if (sic1>sic2) {
-                                    System.out.println("\t\tsi= No Jugar");
-                                    System.out.println("\t\tNo=Jugar");
-                                }else{
-                                    System.out.println("\t\tSi=Jugar");
-                                    System.out.println("\t\tNo= No jugar");
-                                }
-                                    
-
-                            }
-                        }
-
-                    }
-                }
-            }
         }
     }//fin del main
 }//fin de la clase

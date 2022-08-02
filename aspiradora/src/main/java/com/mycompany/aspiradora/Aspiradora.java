@@ -76,9 +76,7 @@ public class Aspiradora {
         }
         //} while (basura > f);
         /*-------------------------impresion de matriz-------------*/
-        for (int i = 0;
-                i < f;
-                i++) {
+        for (int i = 0; i < f; i++) {
             for (int j = 0; j < c; j++) {
                 System.out.printf("[%d]", matrix[i][j]);
             }
@@ -129,6 +127,6 @@ public class Aspiradora {
             }
         }
 
-        JOptionPane.showMessageDialog(null,"fin de programa");
+        JOptionPane.showMessageDialog(null, "fin de programa");
     }
 }

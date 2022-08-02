@@ -21,13 +21,13 @@ public class Matriz {
     static double IMmenor80, IMmayor80;
     static double menor80 = 0, mayor80 = 0;
     static double imp[] = {menor80, mayor80};
-    static double IMno,IMsi;
+    static double IMno, IMsi;
     static double lluv[] = {lluviosoc1, lluviosoc2};
     static double nubl[] = {nubladoc1, nubladoc2};
     //variable de viento
     static double si = 0, no = 0, sic1 = 0, sic2 = 0, noc1 = 0, noc2 = 0, SiN1 = 0, SiN2 = 0, NoN1 = 0, NoN2 = 0;
     //impureza
-    static double impE , impT, impH, impV, impES , impEst , impEstal , impTEM, impTE, impHu, impHum, impVi, impVie;
+    static double impE, impT, impH, impV, impES, impEst, impEstal, impTEM, impTE, impHu, impHum, impVi, impVie;
 
     public static void main(String[] args) {
         double sol[] = {soleadoc1, soleadoc2};
@@ -68,60 +68,8 @@ public class Matriz {
         Temperatura(registros);
         Humedad(registros);
         Viento(registros);
+        impureza(IMsol, IMllu, IMnu);
 
-        /*----------------------------------impureza----------------------------------*/
-        System.out.println("------------------------impureza de la division---------------------");
-        System.out.println("--------Estado General");
-        /*----------------------------------General----------------------------------*/
-        impE = ((soleado / registro * IMsol)/2);
-        System.out.println(impE);
-        impES = (nublado / registro * IMnu);
-        System.out.println(impES);
-        impEst = ((lluvioso / registro * IMllu)/2);
-        System.out.println(impEst);
-        if (Double.toString(impE) == "NaN") {
-            impE = 0;
-        } else if (Double.toString(impES) == "NaN") {
-            impES = 0;
-        } else if (Double.toString(impEst) == "NaN") {
-            impEst = 0;
-        }
-        impEstal = impE + impES + impEst;
-        System.out.println(impEstal);
-
-        System.out.println("--------Temperatura");/*----------------------------------Temperatura----------------------------------*/
-        impT = ((menor74 / registro) * IMmenor74);
-        impTE = ((mayor74 / registro) * IMmayor74);
-        if (Double.toString(impT) == "NaN") {
-            impT = 0;
-        } else if (Double.toString(impTE) == "NaN") {
-            impTE = 0;
-        }
-        impTEM = impT + impTE;
-        System.out.println(impTEM);
-
-        System.out.println("--------Humedad");/*----------------------------------Humedad----------------------------------*/
-        impH = ((menor80 / registro) * IMmenor80);
-        impHu = ((mayor80 / registro) * IMmayor80);
-        if (Double.toString(impH) == "NaN") {
-            impH = 0;
-        } else if (Double.toString(impHu) == "NaN") {
-            impHu = 0;
-        }
-        impHum = impH + impHu;
-        System.out.println(impHum);
-
-        System.out.println("--------Viento");/*----------------------------------Viento----------------------------------*/
-        impV = ((si / registro) * IMsi);
-        impVi = ((no / registro) * IMno);
-        if (Double.toString(impV) == "NaN") {
-            impV = 0;
-        } else if (Double.toString(impVi) == "NaN") {
-            impVi = 0;
-        }
-        impVie = impV + impVi;
-        System.out.println(impVie);
-        System.out.println();
         /*---------------------------------------arbol --------------------------
         System.out.println();
 
@@ -453,7 +401,7 @@ public class Matriz {
                                     Nm = soleado;
                                     System.out.println(Nm);
                                 } else if (a[y] == impHum) {*/
-                                    /*System.out.println("-------------impresion de arbol-------------------");
+ /*System.out.println("-------------impresion de arbol-------------------");
                                     System.out.println("Estado General");
                                     System.out.println("nublado=" + a[0]);
                                     System.out.println("\tjugar");
@@ -466,7 +414,7 @@ public class Matriz {
                                             System.out.println("\t\t>" + mediatotalhum + "No Jugar");
                                         }
                                     }*/
-                                /*} else if (a[y] == impVie) {
+ /*} else if (a[y] == impVie) {
                                     System.out.println("viento=" + b[0]);
                                     Arrays.sort(lluv);
                                     if (impVie == b[0]) {
@@ -835,7 +783,7 @@ public class Matriz {
         return (muerto1);
     }
 
-    public static void Soleado(String registros[][]) {
+    public static double Soleado(String registros[][]) {
         Estado_General(registros);
         // double soleado , nublado , lluvioso ;
         /*----------------------------tabla de soleados----------------------------*/
@@ -855,9 +803,10 @@ public class Matriz {
             IMsol = 0;
         }
         System.out.println("Im=" + IMsol);
+        return IMsol;
     }
 
-    public static void Nublado(String registros[][]) {
+    public static double Nublado(String registros[][]) {
         Estado_General(registros);
         System.out.println("\n*Nublado");
         nuN1 = nubladoc1 / nublado;
@@ -870,10 +819,11 @@ public class Matriz {
             IMnu = 0;
         }
         System.out.println("Im=" + IMnu);
+        return IMnu;
 
     }
 
-    public static void lluvioso(String registros[][]) {
+    public static double lluvioso(String registros[][]) {
         Estado_General(registros);
         /*--------------lluvioso-----------------*/
         System.out.println("\n*lluvioso");
@@ -887,6 +837,7 @@ public class Matriz {
             IMllu = 0;
         }
         System.out.println("Im=" + IMllu);
+        return IMllu;
     }
 
     public static String busqueda_temperatura(String registros[][]) {
@@ -946,8 +897,9 @@ public class Matriz {
         System.out.println("Im=" + IMmenor74);
         return muerto;
     }
-    public static String Humedad(String registros[][]){
-        
+
+    public static String Humedad(String registros[][]) {
+
         /*----------------------------------media de Humedad------------------*/
         media = 0;
         mediatotal = 0;
@@ -1001,7 +953,8 @@ public class Matriz {
         System.out.println("Im=" + IMmayor80);
         return muerto;
     }
-    public static String Viento (String registros[][]){
+
+    public static String Viento(String registros[][]) {
         for (int i = 0; i < registros.length; i++) {
             if (registros[i][4] == "Si") {
                 si = si + 1;
@@ -1044,8 +997,61 @@ public class Matriz {
         System.out.println("Im=" + IMno);
         return muerto;
     }
-    public static double impureza(){
-        
-        return  muerto2;
+
+    public static double impureza(double IMsol, double IMllu, double IMnu) {
+        /*----------------------------------impureza----------------------------------*/
+        System.out.println("------------------------impureza de la division---------------------");
+        System.out.println("--------Estado General");
+        /*----------------------------------General----------------------------------*/
+        impE = ((soleado / registro * IMsol) / 2);
+        System.out.println(impE);
+        impES = (nublado / registro * IMnu);
+        System.out.println(impES);
+        impEst = ((lluvioso / registro * IMllu) / 2);
+        System.out.println(impEst);
+        if (Double.toString(impE) == "NaN") {
+            impE = 0;
+        } else if (Double.toString(impES) == "NaN") {
+            impES = 0;
+        } else if (Double.toString(impEst) == "NaN") {
+            impEst = 0;
+        }
+        impEstal = impE + impES + impEst;
+        System.out.println(impEstal);
+
+        System.out.println("--------Temperatura");/*----------------------------------Temperatura----------------------------------*/
+        impT = ((menor74 / registro) * IMmenor74);
+        impTE = ((mayor74 / registro) * IMmayor74);
+        if (Double.toString(impT) == "NaN") {
+            impT = 0;
+        } else if (Double.toString(impTE) == "NaN") {
+            impTE = 0;
+        }
+        impTEM = impT + impTE;
+        System.out.println(impTEM);
+
+        System.out.println("--------Humedad");/*----------------------------------Humedad----------------------------------*/
+        impH = ((menor80 / registro) * IMmenor80);
+        impHu = ((mayor80 / registro) * IMmayor80);
+        if (Double.toString(impH) == "NaN") {
+            impH = 0;
+        } else if (Double.toString(impHu) == "NaN") {
+            impHu = 0;
+        }
+        impHum = impH + impHu;
+        System.out.println(impHum);
+
+        System.out.println("--------Viento");/*----------------------------------Viento----------------------------------*/
+        impV = ((si / registro) * IMsi);
+        impVi = ((no / registro) * IMno);
+        if (Double.toString(impV) == "NaN") {
+            impV = 0;
+        } else if (Double.toString(impVi) == "NaN") {
+            impVi = 0;
+        }
+        impVie = impV + impVi;
+        System.out.println(impVie);
+        System.out.println();
+        return muerto2;
     }
 }//fin de la clase //1026 lineas de codigo
