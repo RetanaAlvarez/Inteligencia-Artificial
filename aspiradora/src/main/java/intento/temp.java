@@ -1,18 +1,13 @@
-package formula_de_bayes;
+package intento;
 
 public class temp {
-
-    static String[][] b = null;
-
+String b[][]=null;
     public static void main(String[] args) {
-        Matriz b;
-
-        b.registros(b);
-
-    }
-    //--------------hacer tabla----------------
-
-    public static double tabla_temperatura(double a[][], double b, double c) {
+        Matriz Ma;
+        
+        
+        /*-------------hacer tabla----------------
+    default  void tabla_temperatura(double a[][], double b, double c) {
         Matriz m;
         m.registros(a);
         for (int i = 0; i < a.length; i++) {
@@ -20,7 +15,7 @@ public class temp {
             b = b + Integer.parseInt(m.registros(a[i][2]));
             c = b / a.length;
         }
-        return (c);
+         */
     }
 
 }

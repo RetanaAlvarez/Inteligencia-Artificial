@@ -13,11 +13,14 @@ public class Principal{
         public static void main(String[] args) {
                 //3.- Crear una instancia de tipo "PruebaExamen" y de nombre "pe", <<pero sin asignar memoria>>.
                 PruebaExamen pe;
+                Matriz ma;
+                
                 //4.- Asignar una Expresión lambda a la instancia "pe", en la cual se imprima la suma de TRES números Enteros.
                 pe = (numero1, numero2, nuevo) ->  System.out.println(numero1+numero2+nuevo);
                 //5.- Invocar "operacionPrueba" e imprimir el resultado de la suma de DOS números Enteros.
                 //pe.operacionPueba(5, 2);
                 //6.- Invocar "mensajeHola".
+                
                 pe.mensajeHola();
                 //7.- Invocar "mensajeHola" y enviar cualquier String.
                 pe.mensajeHola("mensaje");

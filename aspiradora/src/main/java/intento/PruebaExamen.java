@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package intento;
-
-/**
- *
- * @author chepe
- */
 /*1.- Crear una Interfaz pública de nombre "PruebaExamen"
 PruebaExamen.java*/
 
